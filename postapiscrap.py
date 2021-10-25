@@ -137,15 +137,7 @@ def productPage():
         living =  m.get('living_rooms','N/A')
 
         alldata.append((Beds,userID,living))        #appending data in array
-
-    df = pd.DataFrame(alldata,columns =['BED ROOMS','ID','LIVING ROOMS'])
-    if not os.path.isfile('DATA_AQAR.xlsx'):            # if file does not exist write header 
-        df.to_excel('DATA_AQAR.xlsx', index=False, encoding='utf-8-sig')
-    else:                                               # else it exists so append without writing the header
-        writer = pd.ExcelWriter('DATA_AQAR.xlsx', engine='openpyxl', mode='a+')
-        df.to_excel(writer)
-        writer.save()
-        writer.close()
+        
 
 i =0
 for i in range(len(allurls)):
@@ -166,6 +158,25 @@ for j in range(len(allurls)):
       productPage()
       time.sleep(.2)
       k=k+1
+   for j in range(len(allurls))[:1]:
+    totalcalls =  math.ceil(purls[0]/50)
+    print(totalcalls)
+    while(k<totalcalls):
+      offset = str(k * 50)
+      #print(offset)
+      print(k)
+      productPage()
+      time.sleep(.12)
+      k=k+1
+    df = pd.DataFrame(alldata,columns =['BED ROOMS','ID','LIVING ROOMS'])
+    # if file does not exist write header 
+    if not os.path.isfile('DATA.xlsx'):
+          df.to_excel('DATA.xlsx', index=False, encoding='utf-8-sig')
+    else:# else it exists so append without writing the header
+          writer = pd.ExcelWriter('DATA.xlsx', engine='openpyxl', mode='a+')
+          df.to_excel(writer)
+          writer.save()
+    writer.close()
 
 time.sleep(3)
 driver.quit()
