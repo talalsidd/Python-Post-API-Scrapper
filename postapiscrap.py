@@ -158,16 +158,6 @@ for j in range(len(allurls)):
       productPage()
       time.sleep(.2)
       k=k+1
-   for j in range(len(allurls))[:1]:
-    totalcalls =  math.ceil(purls[0]/50)
-    print(totalcalls)
-    while(k<totalcalls):
-      offset = str(k * 50)
-      #print(offset)
-      print(k)
-      productPage()
-      time.sleep(.12)
-      k=k+1
     df = pd.DataFrame(alldata,columns =['BED ROOMS','ID','LIVING ROOMS'])
     # if file does not exist write header 
     if not os.path.isfile('DATA.xlsx'):
